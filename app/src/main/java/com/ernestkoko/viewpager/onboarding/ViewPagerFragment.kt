@@ -9,10 +9,12 @@ import com.ernestkoko.viewpager.R
 import com.ernestkoko.viewpager.screens.FirstScreen
 import com.ernestkoko.viewpager.screens.SecondScreen
 import com.ernestkoko.viewpager.screens.ThirdScreen
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_view_pager.view.*
 
 
 class ViewPagerFragment : Fragment() {
+
 
 
     override fun onCreateView(
@@ -31,7 +33,14 @@ class ViewPagerFragment : Fragment() {
         val adapter =
             ViewPagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
 
-        view.viewPager2.adapter = adapter
+        val pager = view.viewPager2
+        val tabLayout = view.myTabLayout
+        pager.adapter = adapter
+        TabLayoutMediator(tabLayout,pager){tab, position ->
+            tab.text = "Object ${position + 1}"
+        }.attach()
+
+
         return view
     }
 
